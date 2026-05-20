@@ -1,0 +1,78 @@
+# Phase 1 dev stack.
+# - postgres: persistent volume, healthcheck so dependents wait for it
+# - migrate:  one-shot, applies SQL migrations then exits 0
+# - api/web:  added in later steps as those services come online
+#
+# Bring everything up: `docker compose up --build`
+# Reset the DB:        `docker compose down -v`
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    volumes:
+      - ./:/workspace
+      - api_node_modules:/workspace/node_modules
+    command: ["npm", "run", "migrate", "--workspace", "@aajia/api"]
+    restart: "no"
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      PLACEHOLDER_USER_ID: ${PLACEHOLDER_USER_ID}
+      API_PORT: 4000
+    ports:
+      - "${API_PORT}:4000"
+    volumes:
+      - ./:/workspace
+      - api_node_modules:/workspace/node_modules
+    command: ["npm", "run", "dev:api"]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.dev
+    depends_on:
+      - api
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
+    ports:
+      - "${WEB_PORT}:5173"
+    volumes:
+      - ./:/workspace
+      - web_node_modules:/workspace/node_modules
+    command: ["npm", "run", "dev:web"]
+
+volumes:
+  pgdata:
+  api_node_modules:
+  web_node_modules:
