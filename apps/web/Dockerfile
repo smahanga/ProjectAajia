@@ -26,4 +26,5 @@ WORKDIR /app
 RUN npm install -g serve@14
 COPY --from=build /workspace/apps/web/dist ./dist
 EXPOSE 3000
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Render injects PORT; fall back to 3000 for local docker run.
+CMD sh -c "serve -s dist -l ${PORT:-3000}"
