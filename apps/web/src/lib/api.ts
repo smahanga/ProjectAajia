@@ -6,7 +6,10 @@ import type {
   PatchDocumentResponse,
 } from "@aajia/shared";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:4000";
+// Default to same-origin so Vite's dev proxy (and any tunnel) handles /api/*.
+// VITE_API_URL can still be set explicitly for a production build that points
+// at a separate api host.
+const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
 export type User = { id: string; name: string };
 

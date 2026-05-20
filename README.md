@@ -2,9 +2,17 @@
 
 A Google Docs-style document editor, built end-to-end in deliberate phases.
 
-**Current phase:** document creation and editing — see [`PROJECT_SPEC.md`](./PROJECT_SPEC.md) for scope.
+**Current phase:** document creation, editing, file upload, and sharing — see [`PROJECT_SPEC.md`](./PROJECT_SPEC.md) for scope.
 For contributor / agent conventions, see [`AGENTS.md`](./AGENTS.md).
 For editor-specific patterns, see [`.claude/skills/editor-patterns/SKILL.md`](./.claude/skills/editor-patterns/SKILL.md).
+
+## Live demo
+
+The app is served via a Cloudflare quick-tunnel to a locally running Docker stack — chosen over a PaaS deployment after time pressure and a Railway incident. The stack itself is identical to what would run in prod; only the hosting is local.
+
+**Demo URL is short-lived** (the tunnel terminates when the host machine sleeps or the cloudflared process exits). Run locally for a reliable experience.
+
+Two hardcoded users: **Alice** and **Bob** — switch between them via the dropdown in the top nav. The user identity is passed via the `x-user-id` header on every request; for this evaluation, the header is trusted (placeholder auth, designed as a single seam to swap for real auth in a later phase).
 
 ## Stack
 
