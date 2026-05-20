@@ -10,7 +10,7 @@ if (!OWNER) {
 }
 
 beforeEach(async () => {
-  await pool.query("TRUNCATE documents");
+  await pool.query("TRUNCATE documents CASCADE");
 });
 
 afterAll(async () => {

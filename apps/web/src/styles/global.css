@@ -77,6 +77,138 @@ button.primary:disabled {
   cursor: not-allowed;
 }
 
+button.secondary {
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button.secondary:hover:not(:disabled) {
+  background: var(--hover);
+}
+
+button.secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.page-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.upload-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.upload-error .dismiss {
+  background: transparent;
+  border: none;
+  color: var(--error);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.25rem;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: #fafafa;
+}
+
+.app-nav-brand {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.user-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.user-switcher select {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  font-size: 0.85rem;
+}
+
+.section-heading {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.doc-row-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.doc-share-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.doc-share-btn:hover {
+  color: var(--primary);
+  background: #eef2ff;
+}
+
+.share-form {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: var(--radius);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.share-form select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  font-size: 0.85rem;
+}
+
+.share-form button {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.row-notice {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 0 0.5rem 0.5rem;
+}
+
 .muted {
   color: var(--muted);
 }

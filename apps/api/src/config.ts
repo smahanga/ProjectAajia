@@ -11,3 +11,15 @@ export const config = {
   placeholderUserId: required("PLACEHOLDER_USER_ID"),
   port: Number.parseInt(process.env.API_PORT ?? "4000", 10),
 };
+
+export const USERS = [
+  { id: "user-alice", name: "Alice" },
+  { id: "user-bob", name: "Bob" },
+] as const;
+
+export type AppUser = (typeof USERS)[number];
+
+export function findUser(id: string): AppUser | undefined {
+  return USERS.find((u) => u.id === id);
+}
+

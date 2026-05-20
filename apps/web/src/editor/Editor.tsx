@@ -1,15 +1,11 @@
 import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import type { ProseMirrorDoc } from "@aajia/shared";
+// Side-effect imports: trigger TipTap's module augmentations so the
+// editor's chained commands (toggleBold, toggleHeading, etc.) are typed.
+// The runtime instances come from @aajia/shared.
+import "@tiptap/starter-kit";
+import "@tiptap/extension-underline";
+import { extensions, type ProseMirrorDoc } from "@aajia/shared";
 import { Toolbar } from "./Toolbar";
-
-const extensions = [
-  StarterKit.configure({
-    heading: { levels: [1, 2, 3] },
-  }),
-  Underline,
-];
 
 type Props = {
   initialContent: ProseMirrorDoc;

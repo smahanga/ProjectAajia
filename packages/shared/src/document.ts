@@ -32,7 +32,9 @@ export type Document = {
 
 // Item shape for the list endpoint — intentionally omits content so list
 // payloads stay small even when docs are large.
-export type DocumentListItem = Pick<Document, "id" | "title" | "updatedAt">;
+export type DocumentListItem = Pick<Document, "id" | "title" | "updatedAt"> & {
+  isOwner: boolean;
+};
 
 // Request/response shapes
 export type ListDocumentsResponse = {

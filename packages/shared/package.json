@@ -18,6 +18,11 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
+  "dependencies": {
+    "@tiptap/core": "^2.4.0",
+    "@tiptap/extension-underline": "^2.4.0",
+    "@tiptap/starter-kit": "^2.4.0"
+  },
   "devDependencies": {
     "typescript": "^5.4.0"
   }

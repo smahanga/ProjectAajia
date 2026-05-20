@@ -62,6 +62,10 @@ docker compose run --rm migrate
 docker compose logs -f api
 ```
 
+## File upload
+
+The document list page has an "Upload" button that accepts a single `.md` or `.txt` file (max 1 MB) and creates a new document from its parsed content. The file's basename (without extension) becomes the document title; the original file is not stored. Markdown is converted to HTML via `marked`, then both `.md` and `.txt` go through the same HTML → ProseMirror JSON pipeline using the shared schema, so anything outside the schema (tables, links, etc.) is dropped on import while supported formatting (headings, **bold**, *italic*, lists) is preserved. `.docx` is not yet supported.
+
 ## Tests
 
 ```bash
