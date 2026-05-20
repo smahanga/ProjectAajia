@@ -3,6 +3,7 @@ import { config } from "./config.js";
 
 const app = createApp();
 
-app.listen(config.port, () => {
-  console.log(`[api] listening on http://localhost:${config.port}`);
+// Bind to 0.0.0.0 so Railway (and other PaaS) can reach the process.
+app.listen(config.port, "0.0.0.0", () => {
+  console.log(`[api] listening on 0.0.0.0:${config.port}`);
 });

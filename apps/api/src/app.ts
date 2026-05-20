@@ -10,9 +10,19 @@ import { documentsRouter } from "./documents/routes.js";
 export function createApp(): Express {
   const app = express();
 
+  // Restrict CORS to the deployed web origin in prod; default to the local
+  // Vite dev server. If unset in production we warn but don't crash — the
+  // user can still hit the api directly.
+  const allowedOrigin =
+    process.env.ALLOWED_ORIGIN ?? "http://localhost:5173";
+  if (!process.env.ALLOWED_ORIGIN) {
+    console.warn(
+      "[api] ALLOWED_ORIGIN not set; defaulting to http://localhost:5173",
+    );
+  }
   app.use(
     cors({
-      // Allow our custom user-switcher header through preflight.
+      origin: allowedOrigin,
       allowedHeaders: ["Content-Type", "x-user-id"],
     }),
   );

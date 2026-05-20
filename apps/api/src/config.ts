@@ -8,8 +8,14 @@ function required(name: string): string {
 
 export const config = {
   databaseUrl: required("DATABASE_URL"),
-  placeholderUserId: required("PLACEHOLDER_USER_ID"),
-  port: Number.parseInt(process.env.API_PORT ?? "4000", 10),
+  // Default keeps prod boot working even if the env var is unset (Railway,
+  // CI, etc.). Local dev still respects PLACEHOLDER_USER_ID from .env.
+  placeholderUserId: process.env.PLACEHOLDER_USER_ID ?? "user-alice",
+  // Railway injects PORT; local dev uses API_PORT.
+  port: Number.parseInt(
+    process.env.PORT ?? process.env.API_PORT ?? "4000",
+    10,
+  ),
 };
 
 export const USERS = [
